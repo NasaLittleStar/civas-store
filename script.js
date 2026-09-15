@@ -214,7 +214,29 @@ function checkout() {
         showToast("Keranjang belanja masih kosong!");
         return;
     }
-    alert("Terima kasih sudah berbelanja di Civa's Store! Pesanan kamu sedang diproses. 🚀");
+
+    // ⚠️ GANTI DENGAN NOMOR WHATSAPP KAMU (Gunakan awalan 62, contoh: 628123456789)
+    const nomorWA = "6282115014709"; 
+
+    // Menyusun rincian pesanan
+    let pesananText = "*PESANAN BARU - CIVA'S STORE*\n\n";
+    pesananText += "Halo Civa's Store, saya ingin memesan:\n";
+
+    let total = 0;
+    cart.forEach((item, index) => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        pesananText += `${index + 1}. ${item.name} (${item.qty}x) - Rp ${subtotal.toLocaleString('id-ID')}\n`;
+    });
+
+    pesananText += `\n*Total Pembayaran:* Rp ${total.toLocaleString('id-ID')}\n\n`;
+    pesananText += "Mohon info nomor rekening / DANA / GoPay untuk pembayarannya. Terima kasih!";
+
+    // Buka WhatsApp Otomatis
+    const urlWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesananText)}`;
+    window.open(urlWA, '_blank');
+
+    // Kosongkan keranjang
     cart = [];
     updateCartUI();
     toggleCart();
