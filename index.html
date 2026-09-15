@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civa's Store - Online Marketplace</title>
+    <!-- Font Inter & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- BACKGROUND ANIMATED SHAPES -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <!-- ==================== AUTHENTICATION SECTION (LOGIN / REGISTER) ==================== -->
+    <section id="auth-section" class="auth-wrapper">
+        <div class="auth-card">
+            <!-- Brand Header -->
+            <div class="brand-header">
+                <div class="logo-circle">
+                    <i class="fa-solid fa-shop"></i>
+                </div>
+                <h2>Civa's Store</h2>
+                <p>Solusi Belanja Tanaman, Makanan & Jasa Terpercaya</p>
+            </div>
+
+            <!-- TAB SWITCHER -->
+            <div class="tab-switcher">
+                <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Masuk</button>
+                <button class="tab-btn" id="tab-register" onclick="switchTab('register')">Daftar</button>
+            </div>
+
+            <!-- FORM LOGIN -->
+            <form id="login-form" onsubmit="handleAuth(event, 'login')">
+                <div class="input-group">
+                    <label for="login-username">Nama / Email</label>
+                    <div class="input-field">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" id="login-username" placeholder="Masukkan username atau email..." required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="login-password">Kata Sandi</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Masukkan kata sandi..." required>
+                        <i class="fa-regular fa-eye toggle-pwd" onclick="togglePassword('login-password', this)"></i>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Ingat Saya
+                    </label>
+                    <a href="#" class="forgot-link">Lupa Password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    MASUK KE STORE <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- FORM REGISTER -->
+            <form id="register-form" class="hidden" onsubmit="handleAuth(event, 'register')">
+                <div class="input-group">
+                    <label for="reg-name">Nama Lengkap</label>
+                    <div class="input-field">
+                        <i class="fa-regular fa-id-card"></i>
+                        <input type="text" id="reg-name" placeholder="Nama lengkap kamu..." required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="reg-email">Alamat Email</label>
+                    <div class="input-field">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="reg-email" placeholder="nama@email.com" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="reg-password">Buat Kata Sandi</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="reg-password" placeholder="Minimal 6 karakter" required>
+                        <i class="fa-regular fa-eye toggle-pwd" onclick="togglePassword('reg-password', this)"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    BUAT AKUN BARU <i class="fa-solid fa-user-plus"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>&copy; 2026 Civa's Store. All rights reserved.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MAIN APP SECTION (DASHBOARD STORE) ==================== -->
+    <div id="app-section" class="app-wrapper hidden">
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <div class="nav-brand">
+                <div class="nav-logo"><i class="fa-solid fa-shop"></i></div>
+                <div>
+                    <h1>Civa's Store</h1>
+                    <span class="tagline">Official Multiproduct Shop</span>
+                </div>
+            </div>
+
+            <div class="nav-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Cari tanaman, makanan, jasa..." oninput="filterProducts()">
+            </div>
+
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+                <div class="user-profile">
+                    <div class="user-avatar" id="user-avatar-text">U</div>
+                    <span id="display-user-name">User</span>
+                    <button class="logout-btn" onclick="logout()" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- BANNER HERO -->
+        <section class="hero-banner">
+            <div class="hero-content">
+                <h2>Selamat Datang di <span>Civa's Store</span>! ✨</h2>
+                <p>Temukan berbagai kebutuhanmu mulai dari Tanaman Hias, Kuliner Lezat, hingga Jasa Profesional dalam satu tempat.</p>
+            </div>
+        </section>
+
+        <!-- MAIN STORE CONTENT -->
+        <main class="store-container">
+            <!-- CATEGORY FILTER BUTTONS -->
+            <div class="category-tabs">
+                <button class="cat-btn active" onclick="setCategory('all', this)"><i class="fa-solid fa-border-all"></i> Semua Produk</button>
+                <button class="cat-btn" onclick="setCategory('tanaman', this)"><i class="fa-solid fa-seedling"></i> Tanaman Hias</button>
+                <button class="cat-btn" onclick="setCategory('makanan', this)"><i class="fa-solid fa-utensils"></i> Makanan & Minuman</button>
+                <button class="cat-btn" onclick="setCategory('jasa', this)"><i class="fa-solid fa-briefcase"></i> Layanan Jasa</button>
+                <button class="cat-btn" onclick="setCategory('aksesoris', this)"><i class="fa-solid fa-gem"></i> Aksesori & Style</button>
+            </div>
+
+            <!-- PRODUCT GRID -->
+            <div class="product-grid" id="product-grid">
+                <!-- Data Produk di-render dinamis dari JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- CART SIDEBAR MODAL -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-basket-shopping"></i> Keranjang Belanja</h3>
+            <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="cart-items" id="cart-items">
+            <!-- Item Keranjang di-render via JS -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Total Harga:</span>
+                    <strong id="cart-total">Rp 0</strong>
+                </div>
+            </div>
+            <button class="btn-checkout" onclick="checkout()">
+                CHECKOUT SEKARANG <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="toast">Notifikasi</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
