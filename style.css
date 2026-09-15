@@ -616,3 +616,182 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+/* ==================== PAYMENT MODAL STYLES ==================== */
+.payment-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    z-index: 200;
+}
+
+.payment-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 480px;
+    max-height: 90vh;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    z-index: 201;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.payment-overlay.show, .payment-modal.show {
+    display: flex;
+}
+.payment-modal.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.payment-header {
+    padding: 18px 20px;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-header h3 {
+    font-size: 16px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.close-modal {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.payment-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.payment-summary-box {
+    background: var(--primary-light);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    padding: 14px 18px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.payment-summary-box strong {
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pay-option-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.pay-option-card:hover {
+    border-color: var(--primary);
+}
+
+.pay-option-header {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    background: white;
+}
+
+.pay-icon {
+    width: 38px;
+    height: 38px;
+    background: #f1f5f9;
+    color: var(--primary);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.pay-info { flex: 1; }
+.pay-info h4 { font-size: 14px; font-weight: 700; }
+.pay-info p { font-size: 11px; color: var(--text-muted); }
+
+.pay-detail {
+    padding: 14px;
+    background: #f8fafc;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.qris-box img {
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 6px;
+}
+
+.acc-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.pay-name {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.wa-option {
+    border-color: #25d366;
+    background: #f0fdf4;
+}
+
+.wa-icon {
+    background: #25d366;
+    color: white;
+}
+
+.payment-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-color);
+    background: white;
+}
+
+.btn-confirm-pay {
+    width: 100%;
+    padding: 12px;
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}

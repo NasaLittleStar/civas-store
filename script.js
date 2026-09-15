@@ -209,16 +209,36 @@ function toggleCart() {
     document.getElementById('cart-overlay').classList.toggle('open');
 }
 
+// GANTI FUNGSI CHECKOUT LAMA DENGAN INI
 function checkout() {
     if (cart.length === 0) {
         showToast("Keranjang belanja masih kosong!");
         return;
     }
 
-    // ⚠️ GANTI DENGAN NOMOR WHATSAPP KAMU (Gunakan awalan 62, contoh: 628123456789)
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    document.getElementById('modal-total-price').innerText = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+
+    // Tutup sidebar keranjang, buka modal pembayaran
+    toggleCart();
+    document.getElementById('payment-overlay').classList.add('show');
+    document.getElementById('payment-modal').classList.add('show');
+}
+
+function closePaymentModal() {
+    document.getElementById('payment-overlay').classList.remove('show');
+    document.getElementById('payment-modal').classList.remove('show');
+}
+
+function togglePayDetail(id) {
+    const detail = document.getElementById(id);
+    detail.classList.toggle('hidden');
+}
+
+function checkoutWA() {
+    // Masukkan nomor WhatsApp kamu di sini (format 62)
     const nomorWA = "6282115014709"; 
 
-    // Menyusun rincian pesanan
     let pesananText = "*PESANAN BARU - CIVA'S STORE*\n\n";
     pesananText += "Halo Civa's Store, saya ingin memesan:\n";
 
@@ -230,16 +250,21 @@ function checkout() {
     });
 
     pesananText += `\n*Total Pembayaran:* Rp ${total.toLocaleString('id-ID')}\n\n`;
-    pesananText += "Mohon info nomor rekening / DANA / GoPay untuk pembayarannya. Terima kasih!";
+    pesananText += "Mohon info ketersediaan stok & pembayarannya. Terima kasih!";
 
-    // Buka WhatsApp Otomatis
     const urlWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesananText)}`;
     window.open(urlWA, '_blank');
 
-    // Kosongkan keranjang
     cart = [];
     updateCartUI();
-    toggleCart();
+    closePaymentModal();
+}
+
+function finishPayment() {
+    alert("Terima kasih! Pembayaran sedang dikonfirmasi. Harap simpan bukti transfer kamu.");
+    cart = [];
+    updateCartUI();
+    closePaymentModal();
 }
 
 function showToast(msg) {

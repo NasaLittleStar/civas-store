@@ -186,7 +186,104 @@
 
     <!-- NOTIFICATION TOAST -->
     <div id="toast" class="toast">Notifikasi</div>
+<!-- MODAL METODE PEMBAYARAN -->
+    <div class="payment-overlay" id="payment-overlay" onclick="closePaymentModal()"></div>
+    <div class="payment-modal" id="payment-modal">
+        <div class="payment-header">
+            <h3><i class="fa-solid fa-wallet"></i> Pilih Metode Pembayaran</h3>
+            <button class="close-modal" onclick="closePaymentModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="payment-body">
+            <div class="payment-summary-box">
+                <span>Total Tagihan:</span>
+                <strong id="modal-total-price">Rp 0</strong>
+            </div>
 
+            <!-- TAB METODE PEMBAYARAN -->
+            <div class="payment-options">
+                <!-- Opsi 1: QRIS -->
+                <div class="pay-option-card">
+                    <div class="pay-option-header" onclick="togglePayDetail('qris-detail')">
+                        <div class="pay-icon"><i class="fa-solid fa-qrcode"></i></div>
+                        <div class="pay-info">
+                            <h4>QRIS (Semua Pembayaran)</h4>
+                            <p>Scan pakai DANA, GoPay, OVO, ShopeePay, atau Mobile Banking</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="pay-detail hidden" id="qris-detail">
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 8px;">Scan Kode QRIS di bawah ini:</p>
+                        <!-- Ganti URL gambar di bawah dengan gambar QRIS milikmu -->
+                        <div class="qris-box">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=CivasStorePayment" alt="QRIS Civa's Store">
+                        </div>
+                        <span class="pay-name">a.n. Civa's Store</span>
+                    </div>
+                </div>
+
+                <!-- Opsi 2: E-Wallet (DANA / GoPay) -->
+                <div class="pay-option-card">
+                    <div class="pay-option-header" onclick="togglePayDetail('ewallet-detail')">
+                        <div class="pay-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                        <div class="pay-info">
+                            <h4>DANA / GoPay / OVO</h4>
+                            <p>Transfer langsung ke nomor E-Wallet</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="pay-detail hidden" id="ewallet-detail">
+                        <div class="acc-row">
+                            <span>DANA / GoPay:</span>
+                            <strong>0821-1501-4709</strong>
+                        </div>
+                        <span class="pay-name">a.n. Alvand Maulvi Maulana</span>
+                    </div>
+                </div>
+
+                <!-- Opsi 3: Transfer Bank -->
+                <div class="pay-option-card">
+                    <div class="pay-option-header" onclick="togglePayDetail('bank-detail')">
+                        <div class="pay-icon"><i class="fa-solid fa-building-columns"></i></div>
+                        <div class="pay-info">
+                            <h4>Transfer Bank</h4>
+                            <p>BCA, Mandiri, BRI, BNI</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="pay-detail hidden" id="bank-detail">
+                        <div class="acc-row">
+                            <span>Bank BCA:</span>
+                            <strong>1234-5678-90</strong>
+                        </div>
+                        <div class="acc-row">
+                            <span>Bank Mandiri:</span>
+                            <strong>1670010055100</strong>
+                        </div>
+                        <span class="pay-name">a.n. Alvandy Maulvi Maulana</span>
+                    </div>
+                </div>
+
+                <!-- Opsi 4: Order via WhatsApp (Tetap Ada) -->
+                <div class="pay-option-card wa-option" onclick="checkoutWA()">
+                    <div class="pay-option-header">
+                        <div class="pay-icon wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                        <div class="pay-info">
+                            <h4>Pesan & Bayar via WhatsApp</h4>
+                            <p>Kirim rincian pesanan langsung ke chat WA penjual</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-footer">
+            <button class="btn-confirm-pay" onclick="finishPayment()">
+                <i class="fa-solid fa-check-circle"></i> SAYA SUDAH BAYAR
+            </button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
